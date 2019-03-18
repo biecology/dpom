@@ -46,7 +46,6 @@ import com.huagu.vcoin.util.Utils;
 import net.sf.json.JSONObject;
 
      //Biecology open source
-	 //BIB交易所开源代码
 
 @Controller
 public class FrontIndexController extends BaseController {
@@ -67,7 +66,6 @@ public class FrontIndexController extends BaseController {
 
 	
 	//Biecology    
-	//BIB交易所 
     @RequestMapping(value = { "/m/index", "/index" })
     public ModelAndView index(HttpServletRequest request, @RequestParam(required = false, defaultValue = "0") int index,
             @RequestParam(required = false, defaultValue = "") String forwardUrl,
@@ -88,7 +86,6 @@ public class FrontIndexController extends BaseController {
         jspPage.add("types", types);
 
 		// Promotion registration
-        // 推广注册
         try {
             int id = 0;
             String val = request.getParameter("r");
@@ -105,12 +102,11 @@ public class FrontIndexController extends BaseController {
             e.printStackTrace();
         }
 		
-		// Registration login module
-		// 注册登录模块
+	// Registration login module
         List<Map<String, Object>> wques = new ArrayList<>();
         if (GetCurrentUser(request) == null) {
             jspPage.addObject("forwardUrl", forwardUrl);
-            jspPage.addObject("msg", "您尚未登录或者登录凭证已经过期，请重新登录!");
+            jspPage.addObject("msg", "");
         } else {
             Fuser fuser = this.frontUserService.findById(GetCurrentUser(request).getFid());
             if (fuser != null && fuser.getFstatus() == UserStatusEnum.FORBBIN_VALUE) {
@@ -125,7 +121,6 @@ public class FrontIndexController extends BaseController {
          
 		 
 		// RExchange announcement
-		// 交易所公告
         List<KeyValues> articles = new ArrayList<KeyValues>();
         List<Farticletype> farticletypes = this.frontOtherService.findFarticleTypeAll();
         for (int i = 0; i < farticletypes.size(); i++) {
@@ -140,7 +135,6 @@ public class FrontIndexController extends BaseController {
 
         try (Mysql mysql = new Mysql()) {
             // Query French Currency Type
-			// 查询法币种类
             MyQuery ds = new MyQuery(mysql);
             ds.add("select * from %s v  ", "fvirtualcointype");
             ds.add("where v.fId in(select fvirtualcointype1 from %s", "ftrademapping");
@@ -234,14 +228,11 @@ public class FrontIndexController extends BaseController {
         if (isLogon(request)) {
             log.info(getUserId());
 			
-			// Estimated total assets
+	    // Estimated total assets
             // NY + Frozen CNY + (Currency + Frozen Currency)* Maximum Purchase Price
-            // 估计总资产
-            // CNY+冻结CNY+（币种+冻结币种）*最高买价
             double totalCapital = 0F;
 			
-			// User Wallet
-            // 用户钱包
+	    // User Wallet
             Mysql handle = new Mysql();
             MyQuery ds = new MyQuery(handle);
             ds.add("select * from  %s", AppDB.Fuser);
@@ -257,10 +248,9 @@ public class FrontIndexController extends BaseController {
             Fvirtualwallet fwallet = this.frontUserService.findWalletByUser(getUserId());
             jspPage.add("fwallet", fwallet);
             if (fwallet == null) {
-                log.error("没有取到用户钱包数据");
+                log.error("no data");
             } else {
-				// Virtual wallet
-                // 虚拟钱包
+		// Virtual wallet
                 Map<Integer, Fvirtualwallet> fvirtualwallets = this.frontUserService
                         .findVirtualWallet(GetCurrentUser(request).getFid());
                 jspPage.add("fvirtualwallets", fvirtualwallets);
@@ -290,7 +280,6 @@ public class FrontIndexController extends BaseController {
 
     /**
 	   BIB EXchange Frontpage
-     * BIB交易所首页
      */
     @RequestMapping(value = { "/indexBitbs", "/m/trade/tradeIndex" })
     public ModelAndView indexConF(HttpServletRequest request,
@@ -314,7 +303,6 @@ public class FrontIndexController extends BaseController {
         modelAndView.addObject("types", types);
 
         // Promotion registration
-		// 推广注册
         try {
             int id = 0;
             id = Integer.parseInt(request.getParameter("r"));
@@ -403,7 +391,6 @@ public class FrontIndexController extends BaseController {
         if (GetCurrentUser(request) != null) {
             
 			// USER Wallet
-			// 用户钱包
             Mysql handle = new Mysql();
             MyQuery ds = new MyQuery(handle);
             ds.add("select * from  %s", AppDB.Fuser);
@@ -419,15 +406,13 @@ public class FrontIndexController extends BaseController {
             Fvirtualwallet fwallet = this.frontUserService.findWalletByUser(GetCurrentUser(request).getFid());
             modelAndView.addObject("fwallet", fwallet);
 			// Virtual wallet
-            // 虚拟钱包
             Map<Integer, Fvirtualwallet> fvirtualwallets = this.frontUserService
                     .findVirtualWallet(GetCurrentUser(request).getFid());
             modelAndView.addObject("fvirtualwallets", fvirtualwallets);
             
             // Estimated total assets
             // NY + Frozen CNY + (Currency + Frozen Currency)* Maximum Purchase Price
-			// 估计总资产
-            // CNY+冻结CNY+（币种+冻结币种）*最高买价
+
             double totalCapital = 0F;
             totalCapital += fwallet.getFtotal() + fwallet.getFfrozen();
             Map<Integer, Integer> tradeMappings = (Map) this.constantMap.get("tradeMappings");
@@ -513,7 +498,6 @@ public class FrontIndexController extends BaseController {
     }
     
     /**
-     * 链实时价格查询方法
      * @param request
      * @return
      */

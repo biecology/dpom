@@ -4,12 +4,17 @@ import com.dao.dto.CoinCoinDto;
 
 import java.util.Map;
 
-
+/**
+ */
 public interface IAppCoinCoinService {
 
     public void startCoinCoinSellBuyMarriedDealOld(CoinCoinDto coinCoinVO);
 
 
+    /**
+     *
+     * @param coinCoinVO
+     */
     void startCoinCoinSellBuyMarriedDeal(CoinCoinDto coinCoinVO);
 
 

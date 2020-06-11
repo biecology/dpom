@@ -1,4 +1,4 @@
-package com.huagu.vcoin.main.service.admin;
+package com.vcoin.main.service.admin;
 
 import java.util.List;
 

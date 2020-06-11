@@ -1,4 +1,4 @@
-package com.huagu.vcoin.main.dao;
+package com.vcoin.main.dao;
 
 import java.util.List;
 

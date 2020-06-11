@@ -3,7 +3,6 @@ package com.huagu.vcoin.main.service.admin;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.stereotype.Service;
 
 import com.huagu.vcoin.main.dao.FaboutDAO;
 import com.huagu.vcoin.main.model.Fabout;

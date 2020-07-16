@@ -25,10 +25,6 @@ public class BalancetypeService {
         this.balancetypeDAO.save(obj);
     }
 
-    public void deleteObj(int id) {
-        Fbalancetype obj = this.balancetypeDAO.findById(id);
-        this.balancetypeDAO.delete(obj);
-    }
 
     public void updateObj(Fbalancetype obj) {
         this.balancetypeDAO.attachDirty(obj);
